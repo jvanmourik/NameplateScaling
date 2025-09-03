@@ -6,7 +6,7 @@ A lightweight addon for World of Warcraft **Project Epoch** (3.3.5) that enhance
 
 1. Download the latest release from the [Releases page](https://github.com/jvanmourik/NameplateScaling/releases).
 2. Extract the `.zip` file.
-3. Move the extracted folder into your World of Warcraft `Interface/AddOns` directory.
+3. Move the NameplateScaling folder into your World of Warcraft `Interface/AddOns` directory.
    - Example: `epoch_live/Interface/AddOns/NameplateScaling`
 4. Restart WoW.
 

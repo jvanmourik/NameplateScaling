@@ -65,7 +65,7 @@ Ensures the nameplate intersection is calculated from the camera to the entity i
 
 `/console nameplateIntersectUseCamera 0` → `/console nameplateIntersectUseCamera 1`
 
-#### Smooth Fade-In (`/console nameplateFadeIn 1`)
+#### Smooth Fade-In
 
 Nameplates no longer pop in instantly, they fade in smoothly when appearing.
 

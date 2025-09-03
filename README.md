@@ -22,6 +22,14 @@ By default, Blizzard nameplates don’t follow your UI scale. This addon fixes t
   <img width="350" height="350" alt="After scaling the nameplate" src="https://github.com/user-attachments/assets/3b4fd006-7b48-4f7a-9e9f-3946c5a5d900" />
 </p>
 
+### Nameplate sorting
+Sorts nameplates by distance to improve visibility when multiple units overlap
+
+<p float="left">
+  <img width="350" height="350" alt="before-sort" src="https://github.com/user-attachments/assets/cb06080e-c8a6-494d-9425-4a7f505caa01" />
+  <img width="350" height="350" alt="after-sort" src="https://github.com/user-attachments/assets/ac832d39-42ee-4b2e-900d-2c85020a8ddd" />
+</p>
+
 ### Bar backgrounds
 Adds a subtle background to both the health and cast bars for better contrast, just like in WoW Classic.
 

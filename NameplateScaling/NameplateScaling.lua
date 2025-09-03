@@ -47,7 +47,11 @@ local function onFrameShow(frame)
     local healthBar, _ = nameplate:GetChildren()
     local regions = getNameplateRegions(nameplate)
 
-    frame.eliteIcon:SetShown(regions.eliteIcon:IsShown())
+    if regions.eliteIcon:IsShown() then
+        frame.eliteIcon:Show()
+    else
+        frame.eliteIcon:Hide()
+    end
 
     if regions.skullIcon:IsShown() then
         frame.skullIcon:Show()
@@ -160,9 +164,23 @@ local function updateFrames()
         local nameplate = frame:GetParent()
         local regions = getNameplateRegions(nameplate)
 
-        frame.threatGlow:SetShown(regions.threatGlow:IsShown())
-        frame.highlight:SetShown(regions.highlight:IsShown())
-        frame.raidIcon:SetShown(regions.raidIcon:IsShown())
+        if regions.threatGlow:IsShown() then
+            frame.threatGlow:Show()
+        else
+            frame.threatGlow:Hide()
+        end
+
+        if regions.highlight:IsShown() then
+            frame.highlight:Show()
+        else
+            frame.highlight:Hide()
+        end
+
+        if regions.raidIcon:IsShown() then
+            frame.raidIcon:Show()
+        else
+            frame.raidIcon:Hide()
+        end
         
         frame.name:SetTextColor(regions.name:GetTextColor())
         frame.raidIcon:SetTexCoord(regions.raidIcon:GetTexCoord())

@@ -65,18 +65,6 @@ local function onFrameShow(frame)
     frame.level:SetTextColor(regions.level:GetTextColor())
 end
 
-local function onFrameUpdate(frame)
-    local nameplate = frame:GetParent()
-    local regions = getNameplateRegions(nameplate)
-
-    frame.threatGlow:SetShown(regions.threatGlow:IsShown())
-    frame.highlight:SetShown(regions.highlight:IsShown())
-    frame.raidIcon:SetShown(regions.raidIcon:IsShown())
-    
-    frame.name:SetTextColor(regions.name:GetTextColor())
-    frame.raidIcon:SetTexCoord(regions.raidIcon:GetTexCoord())
-end
-
 local function onHealthBarValueChanged(frame, value)
     local nameplate = frame:GetParent()
     local regions = getNameplateRegions(nameplate)
@@ -122,47 +110,78 @@ local function onCastBarValueChanged(frame, value)
     frame.spellIcon:SetTexture(regions.spellIcon:GetTexture())
 end
 
+local frames = {}
+
+local function attachFrame(nameplate)
+    -- Hide nameplate
+    local healthBar, castBar = nameplate:GetChildren()
+    local regions = getNameplateRegions(nameplate)
+    healthBar:Hide()
+    castBar:SetStatusBarTexture(nil)
+    regions.threatGlow:SetTexCoord(0, 0, 0, 0)
+    regions.healthBarBorder:SetTexture(nil)
+    regions.castBarBorder:SetTexture(nil)
+    regions.castBarShieldBorder:SetTexture(nil)
+    regions.spellIcon:SetWidth(0.1)
+    regions.highlight:SetTexture(nil)
+    regions.name:SetWidth(0.1)
+    regions.level:SetWidth(0.1)
+    regions.skullIcon:SetTexture(nil)
+    regions.raidIcon:SetTexture(nil)
+    regions.eliteIcon:SetTexture(nil)
+
+    -- Attach a custom frame to this nameplate
+    local frame = CreateFrame("Frame", "NameplateFrame" .. #frames, nameplate, "NameplateFrameTemplate")
+    table.insert(frames, frame)
+
+    frame:SetScale(UIParent:GetScale())
+    frame.healthBar:SetFrameLevel(frame:GetFrameLevel() - 1)
+    frame.castBar:SetFrameLevel(frame:GetFrameLevel() - 1)
+
+    frame:SetScript("OnShow", onFrameShow)
+    castBar:HookScript("OnShow", function() onCastBarShow(frame) end)
+    castBar:HookScript("OnHide", function() onCastBarHide(frame) end)
+    healthBar:HookScript("OnValueChanged", function(self, ...) onHealthBarValueChanged(frame, ...) end)
+    castBar:HookScript("OnValueChanged", function(self, ...) onCastBarValueChanged(frame, ...) end)
+    
+    onFrameShow(frame)
+end
+
+local frameLevelSpacing = 3  -- allows children to occupy intermediate frame levels without risk of overlapping incorrectly
+
+local function updateFrames()
+    table.sort(frames, function(a, b)
+        return a:GetEffectiveDepth() > b:GetEffectiveDepth()
+    end)
+
+    for i, frame in ipairs(frames) do
+        frame:SetFrameLevel(i * frameLevelSpacing)
+
+        local nameplate = frame:GetParent()
+        local regions = getNameplateRegions(nameplate)
+
+        frame.threatGlow:SetShown(regions.threatGlow:IsShown())
+        frame.highlight:SetShown(regions.highlight:IsShown())
+        frame.raidIcon:SetShown(regions.raidIcon:IsShown())
+        
+        frame.name:SetTextColor(regions.name:GetTextColor())
+        frame.raidIcon:SetTexCoord(regions.raidIcon:GetTexCoord())
+    end
+end
+
 local numChildren = 1
 
 function addon:OnUpdate(elapsed)
-    for i = numChildren + 1, WorldFrame:GetNumChildren() do -- skip first child, not a nameplate
+    local currentNumChildren = WorldFrame:GetNumChildren()
+    for i = numChildren + 1, currentNumChildren do -- skip first child, not a nameplate
         local nameplate = select(i, WorldFrame:GetChildren())
         if isNameplate(nameplate) then
-            -- Hide nameplate
-            local healthBar, castBar = nameplate:GetChildren()
-            local regions = getNameplateRegions(nameplate)
-            healthBar:Hide()
-            castBar:SetStatusBarTexture(nil)
-            regions.threatGlow:SetTexCoord(0, 0, 0, 0)
-            regions.healthBarBorder:SetTexture(nil)
-            regions.castBarBorder:SetTexture(nil)
-            regions.castBarShieldBorder:SetTexture(nil)
-            regions.spellIcon:SetWidth(0.1)
-            regions.highlight:SetTexture(nil)
-            regions.name:SetWidth(0.1)
-            regions.level:SetWidth(0.1)
-            regions.skullIcon:SetTexture(nil)
-            regions.raidIcon:SetTexture(nil)
-            regions.eliteIcon:SetTexture(nil)
-
-            -- Attach a custom frame to this nameplate
-            local frame = CreateFrame("Frame", "NameplateFrame" .. i, nameplate, "NameplateFrameTemplate")
-
-            frame:SetScale(UIParent:GetScale())
-            frame.healthBar:SetFrameLevel(frame:GetFrameLevel() - 1)
-            frame.castBar:SetFrameLevel(frame:GetFrameLevel() - 1)
-
-            frame:SetScript("OnShow", onFrameShow)
-            frame:SetScript("OnUpdate", onFrameUpdate)
-            healthBar:HookScript("OnValueChanged", function(self, ...) onHealthBarValueChanged(frame, ...) end)
-            castBar:HookScript("OnShow", function() onCastBarShow(frame) end)
-            castBar:HookScript("OnHide", function() onCastBarHide(frame) end)
-            castBar:HookScript("OnValueChanged", function(self, ...) onCastBarValueChanged(frame, ...) end)
-            
-            onFrameShow(frame)
+            attachFrame(nameplate)
         end
     end
-    numChildren = WorldFrame:GetNumChildren()
+    numChildren = currentNumChildren
+
+    updateFrames()
 end
 
 addon:RegisterEvent("ADDON_LOADED")

@@ -22,7 +22,7 @@
         </FontHeight>
 	</Font>
 
-    <Texture name="StatusBarBackground" virtual="true">
+    <Texture name="NameplateBackgroundTemplate" virtual="true">
         <Anchors>
             <Anchor point="TOPLEFT"/>
             <Anchor point="BOTTOMRIGHT"/>
@@ -30,7 +30,7 @@
         <Color r="0" g="0" b="0" a="0.5"/>
     </Texture>
 
-    <Button name="NameplateFrameTemplate" virtual="true">
+    <Frame name="NameplateFrameTemplate" virtual="true">
         <Size x="200" y="50"/>
         <Anchors>
             <Anchor point="CENTER" x="0" y="0"/>
@@ -44,20 +44,20 @@
 				</Anchors>
 				<Layers>
 					<Layer level="BACKGROUND">
-						<Texture parentKey="background" inherits="StatusBarBackground"/>
+						<Texture inherits="NameplateBackgroundTemplate"/>
 					</Layer>
 				</Layers>
-				<BarTexture parentKey="barTexture" file="Interface/TargetingFrame/UI-TargetingFrame-BarFill"/>
+				<BarTexture file="Interface/TargetingFrame/UI-TargetingFrame-BarFill"/>
 			</StatusBar>
             <!-- Cast bar -->
             <StatusBar parentKey="castBar" hidden="true">
                 <Size x="160" y="14"/>
                 <Layers>
 					<Layer level="BACKGROUND">
-						<Texture parentKey="background" inherits="StatusBarBackground"/>
+						<Texture inherits="NameplateBackgroundTemplate"/>
 					</Layer>
 				</Layers>
-				<BarTexture parentKey="barTexture" file="Interface/TargetingFrame/UI-TargetingFrame-BarFill"/>
+				<BarTexture file="Interface/TargetingFrame/UI-TargetingFrame-BarFill"/>
                 <BarColor r="1" g=".7" b="0"/>
             </StatusBar>
         </Frames>
@@ -75,7 +75,7 @@
             </Layer>
             <Layer level="ARTWORK">
                 <!-- Health bar border -->
-                <Texture name="$parentHealthBarBorder" file="Interface/Tooltips/Nameplate-Border">
+                <Texture name="$parent.healthBarBorder" file="Interface/Tooltips/Nameplate-Border">
 					<TexCoords left="0" right="1" top="0" bottom="1"/>
                     <Anchors>
                         <Anchor point="TOPLEFT"/>
@@ -83,7 +83,7 @@
                     </Anchors>
 				</Texture>
                 <!-- Cast bar border -->
-                <Texture name="$parentCastBarBorder" parentKey="castBarBorder" file="Interface/Tooltips/Nameplate-Border" hidden="true">
+                <Texture name="$parent.castBarBorder" parentKey="castBarBorder" file="Interface/Tooltips/Nameplate-Border" hidden="true">
                     <Size x="198.89" y="49.72"/>
 					<TexCoords left="1" right="0" top="0" bottom="1"/>
                     <Anchors>
@@ -94,7 +94,7 @@
                 <Texture parentKey="castBarShieldBorder" file="Interface/Tooltips/Nameplate-CastBar-Shield" hidden="true">
                     <Size x="200" y="50"/>
                     <Anchors>
-                        <Anchor point="CENTER" relativeTo="$parentCastBarBorder" x="0" y="-25"/>
+                        <Anchor point="CENTER" relativeTo="$parent.castBarBorder" x="0" y="-25"/>
                     </Anchors>
 				</Texture>
                 <!-- Name -->
@@ -104,7 +104,7 @@
 					</Anchors>
 				</FontString>
                 <!-- Level -->
-                <FontString name="$parentLevel" parentKey="level" inherits="CustomFont_NameplateLevel">
+                <FontString name="$parent.level" parentKey="level" inherits="CustomFont_NameplateLevel">
 					<Anchors>
 						<Anchor point="CENTER" relativePoint="BOTTOMRIGHT" x="-18" y="14"/>
 					</Anchors>
@@ -113,7 +113,7 @@
                 <Texture parentKey="raidIcon" file="Interface\TargetingFrame\UI-RaidTargetingIcons" hidden="true">
                     <Size x="40" y="40"/>
                     <Anchors>
-						<Anchor point="RIGHT" relativeTo="$parentHealthBarBorder" relativePoint="LEFT"/>
+						<Anchor point="RIGHT" relativeTo="$parent.healthBarBorder" relativePoint="LEFT"/>
 					</Anchors>
                 </Texture>
                 <!-- Elite icon -->
@@ -121,7 +121,7 @@
                     <Size x="58" y="43"/>
 					<TexCoords left="0" right="0.57" top="0" bottom="0.84"/>
                     <Anchors>
-						<Anchor point="CENTER" relativeTo="$parentLevel" x="6" y="-2"/>
+						<Anchor point="CENTER" relativeTo="$parent.level" x="6" y="-2"/>
 					</Anchors>
                 </Texture>
 			</Layer>
@@ -137,17 +137,17 @@
                 <Texture parentKey="spellIcon" hidden="true">
                     <Size x="20" y="20"/>
                     <Anchors>
-                        <Anchor point="CENTER" relativeTo="$parentCastBarBorder" relativePoint="BOTTOMLEFT" x="18" y="14"/>
+                        <Anchor point="CENTER" relativeTo="$parent.castBarBorder" relativePoint="BOTTOMLEFT" x="18" y="14"/>
                     </Anchors>
 				</Texture>
                 <!-- Skull icon -->
                 <Texture parentKey="skullIcon" file="Interface\TargetingFrame\UI-TargetingFrame-Skull" hidden="true">
                     <Size x="20" y="20"/>
                     <Anchors>
-						<Anchor point="CENTER" relativeTo="$parentLevel"/>
+						<Anchor point="CENTER" relativeTo="$parent.level"/>
 					</Anchors>
                 </Texture>
             </Layer>
         </Layers>
-    </Button>
+    </Frame>
 </Ui>

@@ -47,19 +47,9 @@ local function onFrameShow(frame)
     local healthBar, _ = nameplate:GetChildren()
     local regions = getNameplateRegions(nameplate)
 
-    if regions.eliteIcon:IsShown() then
-        frame.eliteIcon:Show()
-    else
-        frame.eliteIcon:Hide()
-    end
-
-    if regions.skullIcon:IsShown() then
-        frame.skullIcon:Show()
-        frame.level:Hide()
-    else
-        frame.skullIcon:Hide()
-        frame.level:Show()
-    end
+    frame.eliteIcon:SetShown(regions.eliteIcon:IsShown())
+    frame.skullIcon:SetShown(regions.skullIcon:IsShown())
+    frame.level:SetShown(not regions.skullIcon:IsShown())
 
     frame.healthBar:SetMinMaxValues(healthBar:GetMinMaxValues())
     frame.healthBar:SetValue(healthBar:GetValue())
@@ -117,9 +107,10 @@ end
 local frames = {}
 
 local function attachFrame(nameplate)
-    -- Hide nameplate
     local healthBar, castBar = nameplate:GetChildren()
     local regions = getNameplateRegions(nameplate)
+    
+    -- Hide nameplate
     healthBar:Hide()
     castBar:SetStatusBarTexture(nil)
     regions.threatGlow:SetTexCoord(0, 0, 0, 0)
@@ -138,7 +129,6 @@ local function attachFrame(nameplate)
     local frame = CreateFrame("Frame", "NameplateFrame" .. #frames, nameplate, "NameplateFrameTemplate")
     table.insert(frames, frame)
 
-    frame:SetScale(UIParent:GetScale())
     frame.healthBar:SetFrameLevel(frame:GetFrameLevel() - 1)
     frame.castBar:SetFrameLevel(frame:GetFrameLevel() - 1)
 
@@ -160,27 +150,14 @@ local function updateFrames()
 
     for i, frame in ipairs(frames) do
         frame:SetFrameLevel(i * frameLevelSpacing)
+        frame:SetScale(UIParent:GetScale())
 
         local nameplate = frame:GetParent()
         local regions = getNameplateRegions(nameplate)
 
-        if regions.threatGlow:IsShown() then
-            frame.threatGlow:Show()
-        else
-            frame.threatGlow:Hide()
-        end
-
-        if regions.highlight:IsShown() then
-            frame.highlight:Show()
-        else
-            frame.highlight:Hide()
-        end
-
-        if regions.raidIcon:IsShown() then
-            frame.raidIcon:Show()
-        else
-            frame.raidIcon:Hide()
-        end
+        frame.threatGlow:SetShown(regions.threatGlow:IsShown())
+        frame.highlight:SetShown(regions.highlight:IsShown())
+        frame.raidIcon:SetShown(regions.raidIcon:IsShown())
         
         frame.name:SetTextColor(regions.name:GetTextColor())
         frame.raidIcon:SetTexCoord(regions.raidIcon:GetTexCoord())

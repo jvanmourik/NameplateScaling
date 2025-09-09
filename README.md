@@ -1,4 +1,4 @@
-# Default Nameplate Scaling
+# Classic Nameplates
 
 A lightweight addon for World of Warcraft **Project Epoch** (3.3.5) that enhances the **default Blizzard nameplates**. It applies your UI scaling to nameplates (so they respect the same scaling as the rest of your UI) and introduces a few carefully chosen tweaks to improve readability and visual polish.
 

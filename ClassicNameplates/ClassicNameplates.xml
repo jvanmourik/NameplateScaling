@@ -1,0 +1,153 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Font name="CustomFont_Nameplate" font="Fonts\FRIZQT__.TTF" wordwrap="false" justifyH="CENTER" virtual="true">
+		<Shadow>
+            <Offset>
+                <AbsDimension x="2" y="-2"/>
+            </Offset>
+            <Color r="0" g="0" b="0"/>
+        </Shadow>
+        <FontHeight>
+            <AbsValue val="20"/>
+        </FontHeight>
+	</Font>
+    <Font name="CustomFont_NameplateLevel" font="Fonts\FRIZQT__.TTF" wordwrap="false" justifyH="CENTER" virtual="true">
+		<Shadow>
+            <Offset>
+                <AbsDimension x="2" y="-2"/>
+            </Offset>
+            <Color r="0" g="0" b="0"/>
+        </Shadow>
+        <FontHeight>
+            <AbsValue val="18"/>
+        </FontHeight>
+	</Font>
+
+    <Texture name="NameplateBackgroundTemplate" virtual="true">
+        <Anchors>
+            <Anchor point="TOPLEFT"/>
+            <Anchor point="BOTTOMRIGHT"/>
+        </Anchors>
+        <Color r="0" g="0" b="0" a="0.5"/>
+    </Texture>
+
+    <Frame name="NameplateFrameTemplate" virtual="true">
+        <Size x="200" y="50"/>
+        <Anchors>
+            <Anchor point="CENTER" x="0" y="0"/>
+        </Anchors>
+        <Frames>
+            <!-- Health bar -->
+            <StatusBar parentKey="healthBar">
+                <Size x="160" y="14"/>
+				<Anchors>
+                    <Anchor point="BOTTOMLEFT" x="6" y="6"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture inherits="NameplateBackgroundTemplate"/>
+					</Layer>
+				</Layers>
+				<BarTexture file="Interface/TargetingFrame/UI-TargetingFrame-BarFill"/>
+			</StatusBar>
+            <!-- Cast bar -->
+            <StatusBar parentKey="castBar" hidden="true">
+                <Size x="160" y="14"/>
+                <Layers>
+					<Layer level="BACKGROUND">
+						<Texture inherits="NameplateBackgroundTemplate"/>
+					</Layer>
+				</Layers>
+				<BarTexture file="Interface/TargetingFrame/UI-TargetingFrame-BarFill"/>
+                <BarColor r="1" g=".7" b="0"/>
+            </StatusBar>
+        </Frames>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <!-- Threat glow -->
+                <Texture parentKey="threatGlow" file="Interface/TargetingFrame/UI-TargetingFrame-Flash" hidden="true">
+                    <Size x="220" y="58"/>
+					<TexCoords left="0" right="0.55" top="0.53" bottom="0.6"/>
+                    <Color r="1" g="0" b="0"/>
+                    <Anchors>
+                        <Anchor point="TOP" x="-2" y="-13"/>
+                    </Anchors>
+				</Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <!-- Health bar border -->
+                <Texture name="$parent.healthBarBorder" file="Interface/Tooltips/Nameplate-Border">
+					<TexCoords left="0" right="1" top="0" bottom="1"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                        <Anchor point="BOTTOMRIGHT"/>
+                    </Anchors>
+				</Texture>
+                <!-- Cast bar border -->
+                <Texture name="$parent.castBarBorder" parentKey="castBarBorder" file="Interface/Tooltips/Nameplate-Border" hidden="true">
+                    <Size x="198.89" y="49.72"/>
+					<TexCoords left="1" right="0" top="0" bottom="1"/>
+                    <Anchors>
+                        <Anchor point="CENTER" relativePoint="CENTER" x="0" y="-25"/>
+                    </Anchors>
+				</Texture>
+                <!-- Shielded cast bar border -->
+                <Texture parentKey="castBarShieldBorder" file="Interface/Tooltips/Nameplate-CastBar-Shield" hidden="true">
+                    <Size x="200" y="50"/>
+                    <Anchors>
+                        <Anchor point="CENTER" relativeTo="$parent.castBarBorder" x="0" y="-25"/>
+                    </Anchors>
+				</Texture>
+                <!-- Name -->
+				<FontString parentKey="name" inherits="CustomFont_Nameplate">
+					<Anchors>
+						<Anchor point="BOTTOM" relativePoint="CENTER"/>
+					</Anchors>
+				</FontString>
+                <!-- Level -->
+                <FontString name="$parent.level" parentKey="level" inherits="CustomFont_NameplateLevel">
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="BOTTOMRIGHT" x="-18" y="14"/>
+					</Anchors>
+				</FontString>
+                <!-- Raid icon -->
+                <Texture parentKey="raidIcon" file="Interface\TargetingFrame\UI-RaidTargetingIcons" hidden="true">
+                    <Size x="40" y="40"/>
+                    <Anchors>
+						<Anchor point="RIGHT" relativeTo="$parent.healthBarBorder" relativePoint="LEFT"/>
+					</Anchors>
+                </Texture>
+                <!-- Elite icon -->
+                <Texture parentKey="eliteIcon" file="Interface\Tooltips\EliteNameplateIcon" hidden="true">
+                    <Size x="58" y="43"/>
+					<TexCoords left="0" right="0.57" top="0" bottom="0.84"/>
+                    <Anchors>
+						<Anchor point="CENTER" relativeTo="$parent.level" x="6" y="-2"/>
+					</Anchors>
+                </Texture>
+			</Layer>
+            <Layer level="OVERLAY">
+                <!-- Highlight -->
+                <Texture parentKey="highlight" file="Interface/Tooltips/Nameplate-Glow" ignoreParentAlpha="true" alphaMode="ADD" hidden="true">
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+						<Anchor point="BOTTOMRIGHT"/>
+					</Anchors>
+				</Texture>
+                <!-- Spell icon -->
+                <Texture parentKey="spellIcon" hidden="true">
+                    <Size x="20" y="20"/>
+                    <Anchors>
+                        <Anchor point="CENTER" relativeTo="$parent.castBarBorder" relativePoint="BOTTOMLEFT" x="18" y="14"/>
+                    </Anchors>
+				</Texture>
+                <!-- Skull icon -->
+                <Texture parentKey="skullIcon" file="Interface\TargetingFrame\UI-TargetingFrame-Skull" hidden="true">
+                    <Size x="20" y="20"/>
+                    <Anchors>
+						<Anchor point="CENTER" relativeTo="$parent.level"/>
+					</Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+    </Frame>
+</Ui>

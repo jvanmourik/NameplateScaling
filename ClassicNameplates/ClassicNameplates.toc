@@ -1,0 +1,6 @@
+## Interface: 30300
+## Title: Classic Nameplates
+## Author: Jake
+Util/SetShown.lua
+ClassicNameplates.xml
+ClassicNameplates.lua

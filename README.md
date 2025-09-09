@@ -1,6 +1,6 @@
 # Classic Nameplates
 
-A lightweight addon for World of Warcraft **Project Epoch** (3.3.5) that enhances the **default Blizzard nameplates**. It applies your UI scaling to nameplates (so they respect the same scaling as the rest of your UI) and introduces a few carefully chosen tweaks to improve readability and visual polish.
+Classic Nameplates is a lightweight addon for World of Warcraft: **Project Epoch** (3.3.5) that enhances the default Blizzard nameplates to more closely match the style and behavior from the Classic client. Features include UI scaling support, depth-based sorting, bar backgrounds, and introduces a few carefully chosen CVar tweaks to improve readability and visual polish.
 
 ## Installation
 

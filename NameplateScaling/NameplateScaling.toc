@@ -1,6 +1,0 @@
-## Interface: 30300
-## Title: Nameplate Scaling
-## Author: Jake
-Util/SetShown.lua
-NameplateScaling.xml
-NameplateScaling.lua

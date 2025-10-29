@@ -72,9 +72,3 @@ Nameplates no longer remain fully visible when the entity is behind terrain.
 Ensures the nameplate intersection is calculated from the camera to the entity instead of from the player, making occlusion more accurate.
 
 `/console nameplateIntersectUseCamera 0` → `/console nameplateIntersectUseCamera 1`
-
-#### Smooth Fade-In
-
-Nameplates no longer pop in instantly, they fade in smoothly when appearing.
-
-`/console nameplateFadeIn 0` → `/console nameplateFadeIn 1`

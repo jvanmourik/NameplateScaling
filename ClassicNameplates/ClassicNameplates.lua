@@ -8,7 +8,7 @@ local defaultSettings = {
     -- Use camera-to-entity intersection instead of player-to-entity
     nameplateIntersectUseCamera = 1,
     -- Fades nameplates in smoothly instead of appearing instantly
-    nameplateFadeIn = 1
+    nameplateFadeIn = 0
 }
 
 local addon = CreateFrame("Frame");
